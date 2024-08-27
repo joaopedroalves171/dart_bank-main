@@ -26,15 +26,15 @@ void main() {
       expect(account2.getBalance(), 700.0);
     });
 
-    test('should not allow transfer to the same account', () {
+    test('Não transferir para contas iguais', () {
       expect(() => transferService(account1, account1, 200.0), throwsException);
     });
 
-    test('should not allow transfer of amount greater than balance', () {
+    test('Não transferir valor maior que o saldo da conta de origem', () {
       expect(() => transferService(account1, account2, 2000.0), throwsException);
     });
 
-    test('should not allow transfer of zero or negative amount', () {
+    test('O valor transferido nao pode ser igual a zero ou número negativo', () {
       expect(() => transferService(account1, account2, 0.0), throwsException);
       expect(() => transferService(account1, account2, -100.0), throwsException);
     });
@@ -43,13 +43,13 @@ void main() {
 
 void transferService(Account from, Account to, double amount) {
   if (from == to) {
-    throw Exception('Cannot transfer to the same account');
+    throw Exception('Não transferir para contas iguais');
   }
   if (amount <= 0) {
-    throw Exception('Transfer amount must be greater than zero');
+    throw Exception('O valor transferido nao pode ser igual a zero');
   }
   if (from.getBalance() < amount) {
-    throw Exception('Insufficient balance');
+    throw Exception('Saldo insuficiente');
   }
   from.withdraw(amount);
   to.deposit(amount);
